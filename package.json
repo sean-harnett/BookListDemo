@@ -10,7 +10,7 @@
     "watch": "webpack --watch",
     "start": "webpack serve",
     "start_open": "webpack serve --open",
-    "github_io_deploy": "gh-pages -d build",
+    "github_io_deploy": "gh-pages -d build"
   },
   "author": "Sean Harnett",
   "license": "ISC",
