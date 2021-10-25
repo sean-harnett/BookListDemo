@@ -1,0 +1,432 @@
+@import url('https://fonts.googleapis.com/css?family=Rubik:300,400,500i,900,900i');
+:root {
+    --foreground: #272727;
+    --background: #161616;
+    --highlight: #413f3f;
+    --white: #cfc6c6;
+    --light: #afb5c1;
+    --accent: #ac91e7;
+    --btn-text: #f2f2f2;
+    --btn-primary: #855cdd;
+    --btn-secondary: #4a22a1;
+}
+
+*, *::before, *::after {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Nunito', sans-serif;
+}
+
+body {
+    background: var(--background);
+}
+
+.popupContainer {
+    width: 100%;
+    height: 100%;
+    display: block;
+    transition: all 1s ease-in-out;
+    animation-duration: 1.8s;
+}
+
+.mainContainer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    /* transition: all 1s ease-in-out;
+    animation-duration: 1.8s; */
+}
+
+.hide__popup {
+    display: none;
+}
+
+.zoom_in {
+    animation-name: zoomIn;
+}
+
+.zoom_out {
+    animation-name: zoomOut;
+}
+
+@keyframes zoomOut {
+    from {
+        transform: scale(1);
+        z-index: 2;
+    }
+    to {
+        transform: scale(0);
+        z-index: -1;
+    }
+}
+
+@keyframes zoomIn {
+    from {
+        transform: scale(0);
+        z-index: -1;
+    }
+    to {
+        transform: scale(1);
+        z-index: 2;
+    }
+}
+
+.bookInfoPopup__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.bookInfoPopup_close {
+    font-size: 2.5rem;
+    cursor: pointer;
+    color: var(--white);
+}
+
+.bookListContainer {
+    max-width: 1000px;
+    background: var(--foreground);
+    margin: auto;
+    margin-top: 5rem;
+    padding: 2rem;
+}
+
+.bookListContainer__title {
+    width: 50%;
+    color: var(--white);
+    font-size: 1.3rem;
+    border-bottom: 2px solid var(--btn-primary);
+    margin-bottom: 1rem;
+}
+
+.bookList__book__fakeBook {
+    height: 150px;
+    width: 100px;
+    border-radius: 0.8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--highlight);
+    border: 2px dotted var(--light);
+    padding: 1rem;
+}
+
+.bookList__book__fakeBook__title {
+    text-align: center;
+    color: var(--white);
+}
+
+.bookList__book__fakeBook__plus {
+    font-size: 4rem;
+    color: var(--white);
+}
+
+.bookList {
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    justify-content: center;
+    border-radius: 1rem;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.bookList__book {
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease-out;
+    position: relative;
+}
+
+.bookList__book:hover {
+    cursor: pointer;
+    z-index: 0;
+    transform: scale(1.2);
+}
+
+.bookList__book__cover {
+    height: 150px;
+    width: 100px;
+    margin-bottom: 0.3rem;
+    border-radius: 0.5rem;
+    position: relative;
+}
+
+.bookList__book__title {
+    max-width: 110px;
+    overflow: hidden;
+    font-weight: bold;
+    color: var(--white);
+    margin-bottom: 0.2rem;
+    font-size: 13px;
+}
+
+.bookList__book__author {
+    max-width: 150px;
+    overflow: hidden;
+    color: var(--white);
+    font-size: 12px;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    animation-duration: 0.9s;
+    /* background: rgba(96, 31, 216, 0.2); */
+    background-color: rgba(38, 15, 87, 0.5);
+    color: white;
+}
+
+.fade_out {
+    animation-name: fadeOut;
+}
+
+.fade_in {
+    animation-name: fadeIn;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+.bookInfoPopup {
+    display: flex;
+    flex-direction: column;
+    border-radius: 1rem;
+    border-radius: 1rem;
+    gap: 0rem;
+    padding: 2rem;
+    width: 80%;
+    height: 50%;
+    max-width: 850px;
+    max-height: 500px;
+    background-color: var(--highlight);
+    position: fixed;
+    z-index: 2;
+    top: 10%;
+}
+
+.bookInfoPopup_title {
+    font-size: 1.3rem;
+    width: 50%;
+    border-bottom: 2px solid var(--btn-primary);
+    color: var(--white);
+}
+
+.bookInfoPopup_bookContainer {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-top: 1rem;
+    width: 100%;
+}
+
+.bookInfoPopup_bookContainer__img {
+    display: none;
+    border-radius: 0.5rem;
+}
+
+.bookInfoPopup__bookAuthorContainer {
+    /* border: 2px solid red; */
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    padding-top: 1rem;
+    max-width: 475px;
+}
+
+.bookInfoPopup__bookAuthorContainer__authorAttributes {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    color: var(--light);
+    padding: 1rem;
+    background: var(--highlight);
+}
+
+.bookInfoPopup__bookAuthorContainer__authorAttributes__author {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.bookInfoPopup__bookAuthorContainer__authorAttributes__author__portrait {
+    height: 50px;
+    width: 50px;
+    border-radius: 0.3rem;
+}
+
+.bookInfoPopup__bookAuthorContainer__authorAttributes__author__name {
+    font-size: 0.8rem;
+}
+
+.bookInfoPopup__bookAuthorContainer__authorAttributes__biography {
+    font-size: 0.7rem;
+}
+
+.bookInfoPopup_bookContainer__aboutBook {
+    display: flex;
+    gap: 0.5rem;
+    width: 100%;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    text-align: left;
+    color: var(--light);
+}
+
+.bookInfoPopup_bookContainer__aboutBook__name {
+    color: var(--white);
+    font-weight: bold;
+    font-size: 1.3rem;
+}
+
+.bookInfoPopup_bookContainer__aboutBook__description {
+    max-width: 500px;
+    font-weight: light;
+    font-size: 0.8rem;
+}
+
+.bookInfoPopup__bookAuthorContainer__authorAttributes__author__years {
+    font-size: 10px;
+    font-weight: 500;
+}
+
+.bookInfoPopup_bookContainer__aboutBook__button {
+    margin-top: 0.5rem;
+    background: var(--btn-primary);
+    color: var(--btn-text);
+    border-radius: 0.3rem;
+    border: 0;
+    padding-top: 0.4rem;
+    padding-bottom: 0.4rem;
+    padding-left: 1.3rem;
+    padding-right: 1.3rem;
+    font-size: 1rem;
+    text-align: center;
+    box-shadow: 0 9px var(--foreground);
+}
+
+.bookInfoPopup_bookContainer__aboutBook__button:active {
+    box-shadow: 0 5px var(--foreground);
+    transform: translateY(4px);
+}
+
+.toReadClicked {
+    background: var(--btn-secondary);
+}
+
+.test-border {
+    border: 2px solid red;
+}
+
+.addBookContainer {
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.addBookContainer__didAddTitle {
+    font-size: 2rem;
+}
+
+.addBookContainer__form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.5rem;
+    width: 100%;
+}
+
+.addBookContainer__form input[type="text"] {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid var(--btn-primary);
+    background: inherit;
+    color: var(--btn-text);
+    font-size: 1.5rem;
+    padding: 0.5rem;
+}
+
+.addBookContainer__form input[type="text"]:focus, .addBookContainer__form input[type="submit"] {
+    outline: none;
+}
+
+.addBookContainer__form input[type="submit"] {
+    background: var(--btn-primary);
+    color: var(--btn-text);
+    border-radius: 0.3rem;
+    border: 0;
+    padding-top: 0.4rem;
+    padding-bottom: 0.4rem;
+    padding-left: 0.8rem;
+    padding-right: 0.8rem;
+    font-size: 1.3rem;
+}
+
+/* Small sized Screens */
+
+@media all and (min-width: 568px) {
+
+    .bookInfoPopup_bookContainer__img{
+        width: 100;
+        height: 150px;
+    }
+    .bookListContainer__title {
+        width: 20%;
+    }
+    .bookInfoPopup_bookContainer__aboutBook__button {
+        white-space: nowrap;
+    }
+}
+
+/* Medium sized screens */
+
+@media all and (min-width: 768px) {
+    .bookInfoPopup_bookContainer{
+        flex-direction: row;
+    }
+    .bookInfoPopup_bookContainer__img{
+        display: block;
+        width: 100px;
+        height: 150px;
+    }
+    .addBookContainer {
+        width: 60%;
+    }
+    .bookList {
+        justify-content: start;
+    }
+    .bookInfoPopup_title {
+        width: 25%;
+    }
+}
