@@ -1,16 +1,17 @@
 {
-  "homepage": "http://sean-harnett.github.io/BookListDemo",
+  "homepage": "https://sean-harnett.github.io/BookListDemo",
   "name": "booklistreact",
   "version": "1.0.0",
   "description": "This is a react application to manage my reading list",
   "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack",
     "watch": "webpack --watch",
     "start": "webpack serve",
     "start_open": "webpack serve --open",
-    "github_io_deploy": "gh-pages -d build"
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
+    "build": "webpack"
   },
   "author": "Sean Harnett",
   "license": "ISC",
