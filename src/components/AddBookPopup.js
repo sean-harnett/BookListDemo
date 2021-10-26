@@ -26,17 +26,14 @@ class AddBookPopup extends React.Component {
     }
 
     _handleSubmit(e) {
-        
-        if (this.isbnRegex.test(this.state.isbn)) {            
-            
+                            
             this.props.addBook(this.state.isbn).then((didAdd) => {
                 if (didAdd) {
                     this.setState({ title: '', author: '', bookAdded: true, popupContent: 'Book Added' });
                 } else {
                     this.setState({ title: '', author: '', bookAdded: true, popupContent: 'Book Not Found' });
                 }
-            });
-        }
+            });        
      
     }
 
