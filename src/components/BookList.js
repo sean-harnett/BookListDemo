@@ -50,6 +50,7 @@ class BookList extends React.Component {
             displayBookAdd: false,
             removeInfoPopup: true,
             removeAddPopup: true,
+            // bookFound: false,
 
         };
     }
@@ -99,29 +100,36 @@ class BookList extends React.Component {
         return list;
     }
     _addBook(isbn) {
-        __(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`);
-        fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`)
+
+        return fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`)
             .then(response => response.json())
             .then((data) => {
-                const volume = data['items'][0]['volumeInfo'];
-                const newBook = {};
-                if (volume.hasOwnProperty('description')) {
-                    newBook.description = volume.description;
-                }
-                if (volume.hasOwnProperty('imageLinks')) {
-                    if (volume.imageLinks.hasOwnProperty('smallThumbnail')) {                        
-                        newBook.thumbnailLink = volume.imageLinks.smallThumbnail;
+                if (data.totalItems != 0) {
+                    const volume = data['items'][0]['volumeInfo'];
+                    const newBook = {};
+                    if (volume.hasOwnProperty('description')) {
+                        newBook.description = volume.description;
                     }
+                    if (volume.hasOwnProperty('imageLinks')) {
+                        if (volume.imageLinks.hasOwnProperty('smallThumbnail')) {
+                            newBook.thumbnailLink = volume.imageLinks.smallThumbnail;
+                        }
 
-                }else{
-                    newBook.thumbnailLink = this.state.cover;
+                    } else {
+                        newBook.thumbnailLink = this.state.cover;
+                    }
+                    newBook.title = volume.title;
+                    newBook.authors = volume.authors;
+
+                    const book = <Book title={newBook.title} key={Math.random()} description={newBook.description} author={newBook.authors} cover={newBook.thumbnailLink} bookInfoPopup={this._showBookInfo} > </Book>;
+                    this.setState({ 'bookList': this.state.bookList.concat(book) });
+                    return true;
+                } else {
+                    return false;
                 }
-                newBook.title = volume.title;
-                newBook.authors = volume.authors;
 
-            const book =  <Book title={newBook.title} key={Math.random()} description={newBook.description} author={newBook.authors} cover={newBook.thumbnailLink} bookInfoPopup={this._showBookInfo} > </Book>;
-                this.setState({'bookList': this.state.bookList.concat(book)});
             });
+
     }
 
     _markRead(title) {
@@ -132,7 +140,7 @@ class BookList extends React.Component {
 
     }
     _displayAddBookPopup() {
-
+        // didAdd={this.state.bookFound}
 
         if (!this.state.removeAddPopup) {
 

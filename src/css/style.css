@@ -220,9 +220,10 @@ body {
     gap: 0rem;
     padding: 2rem;
     width: 80%;
-    height: 50%;
+    height: auto;
     max-width: 850px;
-    max-height: 500px;
+    max-height: 800px;
+    
     background-color: var(--highlight);
     position: fixed;
     z-index: 2;

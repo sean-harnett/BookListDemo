@@ -13,25 +13,38 @@ class AddBookPopup extends React.Component {
         this._handleSubmit = this._handleSubmit.bind(this);
         this._IsbnChange = this._IsbnChange.bind(this);
 
+        this.isbnRegex =  new RegExp('^(?:ISBN(?:-1[03])?:? )?(?=[0-9X]{10}$|(?=(?:[0-9]+[- ]){3})[- 0-9X]{13}$|97[89][0-9]{10}$|(?=(?:[0-9]+[- ]){4})[- 0-9]{17}$)(?:97[89][- ]?)?[0-9]{1,5}[- ]?[0-9]+[- ]?[0-9]+[- ]?[0-9X]$');
+            
+
         this.state = {
             'title': '',
             'author': '',
             'isbn': '',
             'bookAdded': false,
+            'popupContent': '',
         }
     }
 
     _handleSubmit(e) {
         
-            this.props.addBook( this.state.isbn);
-            this.setState({ title: '', author: '', bookAdded: true });
+        if (this.isbnRegex.test(this.state.isbn)) {            
+            
+            this.props.addBook(this.state.isbn).then((didAdd) => {
+                if (didAdd) {
+                    this.setState({ title: '', author: '', bookAdded: true, popupContent: 'Book Added' });
+                } else {
+                    this.setState({ title: '', author: '', bookAdded: true, popupContent: 'Book Not Found' });
+                }
+            });
+        }
+     
     }
 
     _titleChange(e) {
 
         this.setState({ 'title': e.target.value });
 
-        
+
 
     }
 
@@ -39,12 +52,12 @@ class AddBookPopup extends React.Component {
 
         this.setState({ 'author': e.target.value });
 
-        
+
 
     }
-    _IsbnChange(e){
+    _IsbnChange(e) {
 
-        this.setState({'isbn': e.target.value});
+        this.setState({ 'isbn': e.target.value });
 
     }
 
@@ -54,11 +67,11 @@ class AddBookPopup extends React.Component {
             return (<form action="#" className="addBookContainer__form" onSubmit={this._handleSubmit}>
                 {/* <input type="text" placeholder="Title" onChange={this._titleChange} /> */}
                 {/* <input type="text" placeholder="Author" onChange={this._authorChange} /> */}
-                <input type="text" placeholder="ISBN" onChange={this._IsbnChange} />
+                <input type="text" placeholder="ISBN" onChange={this._IsbnChange} required />
                 <input type="submit" value="Add Book" />
             </form>)
         } else {
-            return (<h5 className="addBookContainer__didAddTitle">Book Added!</h5>);
+            return (<h5 className="addBookContainer__didAddTitle">{this.state.popupContent}</h5>);
         }
     }
 
