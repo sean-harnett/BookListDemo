@@ -291,6 +291,7 @@ body {
 }
 
 .bookInfoPopup_bookContainer__aboutBook {
+    
     display: flex;
     gap: 0.5rem;
     width: 100%;
@@ -349,6 +350,8 @@ body {
 .addBookContainer {
     width: 100%;
     height: 100%;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
     margin: auto;
     display: flex;
     flex-direction: row;
