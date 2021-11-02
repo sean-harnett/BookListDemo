@@ -17,18 +17,7 @@ class BookList extends React.Component {
 
         this._markRead = this._markRead.bind(this);
 
-        this.testList = [
-            {
-                'authors': ['Emily Bronte'],
-                'title': 'Test',
-                'isbn': '',
-                'description': '',
-                'cover': 'https://images.pexels.com/photos/5095897/pexels-photo-5095897.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
-                'biography': '',
-                'portrait': '',
-                'years': '',
-            },
-        ];
+        this.testList = ['9780132350884', '9781617292422', '9781449319793'];
 
 
         this._showBookInfo = this._showBookInfo.bind(this);
@@ -40,7 +29,7 @@ class BookList extends React.Component {
         this.willCloseAdd = false;
 
         this.state = {
-            bookList: this._createList(),
+            bookList: [],
             currentTitle: '',
             currentCover: '',
             currentAuthor: '',
@@ -50,9 +39,10 @@ class BookList extends React.Component {
             displayBookAdd: false,
             removeInfoPopup: true,
             removeAddPopup: true,
-            // bookFound: false,
 
         };
+
+        this._createList();
     }
 
     _showBookInfo(title, cover, author, description) {
@@ -90,18 +80,13 @@ class BookList extends React.Component {
     }
 
     _createList() {
-        const list = this.testList.map(slot => {
-
-            const id = Math.random();
-
-            return (<Book title={slot.title} key={id} author={slot.authors} cover={slot.cover} description={slot.description} bookInfoPopup={this._showBookInfo} > </Book>);
+        this.testList.forEach(isbn => {
+            this._addBook(isbn);
         });
-
-        return list;
     }
     _addBook(isbn) {
 
-        return fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`, {'mode': 'cors'})
+        return fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`, { 'mode': 'cors' })
             .then(response => response.json())
             .then((data) => {
                 if (data.totalItems != 0) {
