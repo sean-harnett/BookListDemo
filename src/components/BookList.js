@@ -101,7 +101,7 @@ class BookList extends React.Component {
     }
     _addBook(isbn) {
 
-        return fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`)
+        return fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`, {'mode': 'cors'})
             .then(response => response.json())
             .then((data) => {
                 if (data.totalItems != 0) {

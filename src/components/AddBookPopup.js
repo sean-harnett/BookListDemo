@@ -26,7 +26,7 @@ class AddBookPopup extends React.Component {
     }
 
     _handleSubmit(e) {
-                            
+        e.preventDefault();                            
             this.props.addBook(this.state.isbn).then((didAdd) => {
                 if (didAdd) {
                     this.setState({ title: '', author: '', bookAdded: true, popupContent: 'Book Added' });
@@ -76,8 +76,6 @@ class AddBookPopup extends React.Component {
         return (<Popup popupTitle='Add Book' show={this.props.show} close={this.props.close}>
             <div className="addBookContainer">
                 {this._displayForm()}
-
-
             </div>
 
         </Popup>);
