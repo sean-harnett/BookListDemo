@@ -9,7 +9,7 @@ import FakeBook from './FakeBook';
 import __ from '../utilities';
 
 
-import { addItem, init } from '../../libs/reactElementMapUtility/index';
+import { addItem, init, removeItem } from '../../libs/reactElementMapUtility/index';
 
 class BookList extends React.Component {
     constructor(props) {
@@ -131,10 +131,10 @@ class BookList extends React.Component {
 
 
     _markRead(title) {
+        removeItem(title, true);
+        // const filteredBookList = this.state.bookList.filter(book => book.props.title != title);
 
-        const filteredBookList = this.state.bookList.filter(book => book.props.title != title);
-
-        this.setState({ bookList: filteredBookList });
+        // this.setState({ bookList: filteredBookList });
 
     }
     _displayAddBookPopup() {
