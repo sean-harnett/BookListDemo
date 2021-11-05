@@ -1,7 +1,8 @@
 import React from 'react';
 import Popup from './popup';
 
-import __ from '../utilities'
+import __ from '../utilities';
+
 
 class AddBookPopup extends React.Component {
     constructor(props) {

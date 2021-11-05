@@ -8,6 +8,9 @@ import FakeBook from './FakeBook';
 
 import __ from '../utilities';
 
+
+import { addItem, init } from '../../libs/reactElementMapUtility/index';
+
 class BookList extends React.Component {
     constructor(props) {
         super(props);
@@ -25,6 +28,11 @@ class BookList extends React.Component {
 
         this._addBook = this._addBook.bind(this);
 
+        this.createBook = this.createBook.bind(this);
+
+        this._createList();
+
+
         this.willCloseInfo = false;
         this.willCloseAdd = false;
 
@@ -39,10 +47,14 @@ class BookList extends React.Component {
             displayBookAdd: false,
             removeInfoPopup: true,
             removeAddPopup: true,
-
         };
 
-        this._createList();
+        init(this._setBookList.bind(this));
+
+    }
+
+    _setBookList(bookElements) {
+        this.setState({ 'bookList': bookElements });
     }
 
     _showBookInfo(title, cover, author, description) {
@@ -106,16 +118,17 @@ class BookList extends React.Component {
                     newBook.title = volume.title;
                     newBook.authors = volume.authors;
 
-                    const book = <Book title={newBook.title} key={Math.random()} description={newBook.description} author={newBook.authors} cover={newBook.thumbnailLink} bookInfoPopup={this._showBookInfo} > </Book>;
-                    this.setState({ 'bookList': this.state.bookList.concat(book) });
+                    addItem(newBook, newBook.title, this.createBook, true);
+
                     return true;
                 } else {
                     return false;
                 }
-
             });
 
     }
+
+
 
     _markRead(title) {
 
@@ -149,6 +162,14 @@ class BookList extends React.Component {
         return;
     }
 
+    createBook(bookProperties) {
+
+        return (<Book title={bookProperties.title} key={bookProperties.title} description={bookProperties.description} author={bookProperties.author} cover={bookProperties.thumbnailLink} bookInfoPopup={this._showBookInfo} />);
+    }
+
+
+
+
     render() {
         return (
 
@@ -159,9 +180,7 @@ class BookList extends React.Component {
                 </div>
                 {this._displayAddBookPopup()}
                 {this._displayInfoPopup()}
-
             </main>
-
         );
     }
 }
